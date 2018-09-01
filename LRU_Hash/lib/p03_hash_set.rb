@@ -10,7 +10,7 @@ class HashSet
 
   def insert(key)
     resize! if @count == num_buckets
-    if include?(key.hash)
+    if include?(key)
       'value is already in array'
     else 
       @store[key.hash % num_buckets] << key
@@ -23,7 +23,7 @@ class HashSet
   end
 
   def remove(key)
-    unless include?(key.hash)
+    unless include?(key)
       puts 'value is not in array'
     else
       @store[key.hash % num_buckets].delete(key)
@@ -34,9 +34,7 @@ class HashSet
   def resize!
     els = []
     @store.each { |arr| arr.each { |el| els << el} }    
-    # p els
     @store = Array.new(num_buckets * 2) { Array.new }
-    # p @store
     els.each { |el| @store[el.hash % num_buckets] << el}
   end
   
